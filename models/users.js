@@ -16,6 +16,7 @@ const escalaUsers = new Schema({
     },
     password:{
         type:String,
+        required:[true, 'É necessario uma password'],
         validate:[passwordValid,'Password precisa de ser pelo menos 8 characters, uma letra maiuscula, uma letra minuscula e um número']
     },
     admin:{
@@ -24,7 +25,9 @@ const escalaUsers = new Schema({
     },
     email:{
         type:String,
-        validator:[emailValid,'Email é invalido']
+        required:[true, 'É necessario um email'],
+        validator:[emailValid,'Email é invalido'],
+        unique:[true,'Este email já existe']
     }
 
 },{
@@ -40,6 +43,6 @@ function passwordValid(val){
     return (/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/).test(val)
 }
 
-function emailValid(val){
+function emailValid(val) {
     return (/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/).test(val)
 }

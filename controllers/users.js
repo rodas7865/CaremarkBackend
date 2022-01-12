@@ -111,8 +111,8 @@ router.post('/login', (req,res)=>{
                     bcryt.compare(password, result.password)
                         .then(result => {
                             if (result === true) {
-
-                                const accesstoken = jwt.sign({user}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15m'})//,
+                                userid=user._id
+                                const accesstoken = jwt.sign({userid}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15m'})//,
 
                                 res.setHeader('authorization', accesstoken).send('Token gerado')
                             }
@@ -129,23 +129,26 @@ router.post('/login', (req,res)=>{
     }
 })
 
-router.post('/register', async (req,res)=>{
+router.post('/register', (req,res)=>{
 
     Users.validate(req.body)
-        .then(()=> {
-                try {
-                    req.body.password = bcryt.hash(req.body.password, 10)
-                } catch (error) {
-                    throw error
-                }
-                Users.insertMany(req.body)
-                    .then(result => {
-                        res.status(201).send(result)
-                    })
-                    .catch(result => {
-                        res.status(401).send(Object.values(result.errors).map(val => val.message))
-                    })
+        .then(result => {
+            if (result===undefined||result===null   ) {
 
+                   bcryt.hash(req.body.password, 10).then(result =>
+                   {req.body.password = result
+                       Users.insertMany(req.body)
+                           .then(result => {
+                               res.status(201).send(result)
+                           })
+                           .catch(() => {
+                               res.status(400).send('Este email já existe')
+                           })
+                       })
+            } else {
+                console.log(result)
+                res.status(400).send(result)
+            }
             }
         )
         .catch(result =>{
