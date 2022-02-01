@@ -19,21 +19,21 @@ router.get('/:id',global.authToken,(req,res)=>{
 
     Escala.findById(req.params.id)
         .then(result => {
-                res.send(result)
+                res.status(200).send(result)
         })
         .catch(result => {
             console.log(result)
-            res.status(400).send('Id não encontrado')
+            res.status(404).send('Id não encontrado')
         })
 })
 
 router.post('/',global.authToken,global.verifyAdmin,(req,res)=>{
     Escala.insertMany(req.body)
         .then(result => {
-            res.status(200).send(result)
+            res.status(203).send(result)
         })
         .catch(result => {
-            res.status(400).send(Object.values(result.errors).map(val => val.message))
+            res.status(406).send(Object.values(result.errors).map(val => val.message))
         })
 })
 
@@ -43,13 +43,13 @@ router.put('/',global.authToken,global.verifyAdmin,(req,res)=>{
         if (result===true) {
             Escala.insertMany(req.body)
                 .then(result => {
-                    res.status(200).send(result)
+                    res.status(203).send(result)
                 })
                 .catch(result => {
-                    res.status(400).send(Object.values(result.errors).map(val => val.message))
+                    res.status(406).send(Object.values(result.errors).map(val => val.message))
                 })
         }
-        res.status(400).send(Object.values(req.body.errors).map(val => val.message))
+        res.status(406).send(Object.values(req.body.errors).map(val => val.message))
     })
 })
 
@@ -58,10 +58,10 @@ router.patch('/:id',global.authToken,global.verifyAdmin,(req,res)=>{
     Escala.updateOne({"_id":req.params.id},req.body)
         .then(result =>{
             console.log(result)
-            res.status(200).send('Update feito com sucesso')
+            res.status(203).send('Update feito com sucesso')
         })
         .catch(result => {
-            res.status(400).send(result)
+            res.status(418).send(result)
         })
 })
 
@@ -69,7 +69,7 @@ router.delete('/:id',global.authToken,global.verifyAdmin,(req,res)=>{
     Escala.deleteOne({"_id":req.params.id})
         .then(()=>res.status(200).send('Delete feito com sucesso'))
         .catch(error=>{
-            res.status(400).send(error)
+            res.status(418).send(error)
         })
 })
 
@@ -84,10 +84,10 @@ router.delete('/',global.authToken,global.verifyAdmin,(req,res)=>{
                 res.status(200).send(result)
             })
             .catch(result => {
-                res.status(400).send(result)
+                res.status(418).send(result)
             })
     }else{
-        res.status(400).send('Body indefinido ou vazio')
+        res.status(406).send('Body indefinido ou vazio')
     }
 
 })

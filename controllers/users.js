@@ -14,7 +14,7 @@ router.get('/',global.authToken,(req,res)=>{
 
     Users.find(req.body)
         .then(result => {
-            res.send(result);
+            res.status(200).send(result);
         })
 })
 
@@ -22,21 +22,20 @@ router.get('/:id',global.authToken,(req,res)=>{
 
     Users.findById(req.params.id)
         .then(result => {
-            res.send(result)
+            res.status(200).send(result)
         })
-        .catch(result => {
-            console.log(result)
-            res.status(400).send('Id não encontrado')
-        })
+        .catch(
+            res.status(404).send('Id não encontrado')
+        )
 })
 
 router.post('/',global.authToken,global.verifyAdmin,(req,res)=>{
     Users.insertMany(req.body)
         .then(result => {
-            res.status(200).send(result)
+            res.status(201).send(result)
         })
         .catch(result => {
-            res.status(400).send(Object.values(result.errors).map(val => val.message))
+            res.status(406).send(Object.values(result.errors).map(val => val.message))
         })
 })
 
@@ -46,13 +45,13 @@ router.put('/',global.authToken,global.verifyAdmin,(req,res)=>{
             if (result===true) {
                 Users.insertMany(req.body)
                     .then(result => {
-                        res.status(200).send(result)
+                        res.status(201).send(result)
                     })
                     .catch(result => {
-                        res.status(400).send(Object.values(result.errors).map(val => val.message))
+                        res.status(418).send(Object.values(result.errors).map(val => val.message))
                     })
             }
-            res.status(400).send(Object.values(req.body.errors).map(val => val.message))
+            res.status(418).send(Object.values(req.body.errors).map(val => val.message))
         })
 })
 
@@ -64,7 +63,7 @@ router.patch('/:id',global.authToken,global.verifyAdmin,(req,res)=>{
             res.status(200).send('Update feito com sucesso')
         })
         .catch(result => {
-            res.status(400).send(result)
+            res.status(418).send(result)
         })
 })
 
@@ -72,7 +71,7 @@ router.delete('/:id',global.authToken,global.verifyAdmin,(req,res)=>{
     Users.deleteOne({"_id":req.params.id})
         .then(()=>res.status(200).send('Delete feito com sucesso'))
         .catch(error=>{
-            res.status(400).send(error)
+            res.status(418).send(error)
         })
 })
 
@@ -87,10 +86,10 @@ router.delete('/',global.authToken,global.verifyAdmin,(req,res)=>{
                 res.status(200).send(result)
             })
             .catch(result => {
-                res.status(400).send(result)
+                res.status(418).send(result)
             })
     }else{
-        res.status(400).send('Body indefinido ou vazio')
+        res.status(406).send('Body indefinido ou vazio')
     }
 
 })
@@ -100,10 +99,10 @@ router.post('/login', (req,res)=>{
         email = req.body.email
 
     if(!(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/).test(password)) {
-        res.status(400).send('Password errada')
+        res.status(406).send('Password errada')
     } else {
         if (!(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/).test(email)) {
-            res.status(400).send('Email errado')
+            res.status(406).send('Email errado')
         } else {
             Users.findOne({"email": email})
                 .then(result => {
@@ -118,12 +117,12 @@ router.post('/login', (req,res)=>{
                             }
                         })
                         .catch(result => {
-                            res.status(400).send(Object.values(result.errors).map(val => val.message))
+                            res.status(406).send(Object.values(result.errors).map(val => val.message))
                         })
 
                 })
                 .catch(result => {
-                    res.status(400).send(Object.values(result.errors).map(val => val.message))
+                    res.status(418).send(Object.values(result.errors).map(val => val.message))
                 })
         }
     }
@@ -142,17 +141,16 @@ router.post('/register', (req,res)=>{
                                res.status(201).send(result)
                            })
                            .catch(() => {
-                               res.status(400).send('Este email já existe')
+                               res.status(403).send('Este email já existe')
                            })
                        })
             } else {
-                console.log(result)
-                res.status(400).send(result)
+                res.status(418).send(result)
             }
             }
         )
         .catch(result =>{
-            res.status(400).send(Object.values(result.errors).map(val => val.message))
+            res.status(406).send(Object.values(result.errors).map(val => val.message))
         })
 
     })
