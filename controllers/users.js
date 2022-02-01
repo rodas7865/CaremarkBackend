@@ -3,7 +3,7 @@ require('dotenv').config()
 const express = require('express'),
     router = express.Router(),
     jwt = require('jsonwebtoken'),
-    bcryt = require('bcrypt'),
+    bcryt = require('bcryptjs'),
     global = require('../shared/function')
     Users = require("../models/users")
 
