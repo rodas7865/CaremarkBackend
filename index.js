@@ -1,6 +1,6 @@
 const express = require("express"),
     app = express(),
-    port = 3000,
+    port = process.env.PORT || 8080,
     projName = "Caremark",
     url ="mongodb://admin:admin@tdwficha-shard-00-00.swz9o.mongodb.net:27017,tdwficha-shard-00-01.swz9o.mongodb.net:27017,tdwficha-shard-00-02.swz9o.mongodb.net:27017/Caremark?ssl=true&replicaSet=atlas-42jsfi-shard-0&authSource=admin&retryWrites=true&w=majority",
     dbName = "Caremark",
