@@ -1,5 +1,6 @@
 const express = require("express"),
     app = express(),
+    cors=require('cors')
     port = process.env.PORT || 8080,
     projName = "Caremark",
     url ="mongodb://admin:admin@tdwficha-shard-00-00.swz9o.mongodb.net:27017,tdwficha-shard-00-01.swz9o.mongodb.net:27017,tdwficha-shard-00-02.swz9o.mongodb.net:27017/Caremark?ssl=true&replicaSet=atlas-42jsfi-shard-0&authSource=admin&retryWrites=true&w=majority",
@@ -9,6 +10,9 @@ const express = require("express"),
 
 
 app.use(express.json());
+app.use(cors({
+    origin:"http://localhost:3000",
+}))
 app.use(function (req,res,next){
     let date = new Date(),
         dataEtempo = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+" em "+date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
