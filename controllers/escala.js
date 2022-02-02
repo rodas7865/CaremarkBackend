@@ -17,13 +17,13 @@ router.get('/',global.authToken,(req,res)=>{
 
 router.get('/:id',global.authToken,(req,res)=>{
 
-    Escala.findById(req.params.id)
+    let filter={_id :req.params.id}
+    Escala.find(filter)
         .then(result => {
                 res.status(200).send(result)
         })
         .catch(result => {
-            console.log(result)
-            res.status(404).send('Id não encontrado')
+
         })
 })
 

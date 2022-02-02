@@ -24,9 +24,9 @@ router.get('/:id',global.authToken,(req,res)=>{
         .then(result => {
             res.status(200).send(result)
         })
-        .catch(
-            res.status(404).send('Id não encontrado')
-        )
+        .catch(result =>{
+            res.status(400).send(result)
+        })
 })
 
 router.post('/',global.authToken,global.verifyAdmin,(req,res)=>{
