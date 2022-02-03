@@ -14,7 +14,7 @@ app.use(cors({
     origin:"*",
     allowedHeaders:"*",
     exposedHeaders:"*",
-    methods:"*",
+    methods:['POST','PUT','GET','DELETE','PATCH'],
 }))
 app.use(function (req,res,next){
     let date = new Date(),
