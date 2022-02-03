@@ -30,6 +30,7 @@ router.get('/:id',global.authToken,(req,res)=>{
 })
 
 router.post('/',global.authToken,global.verifyAdmin,(req,res)=>{
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     Users.insertMany(req.body)
         .then(result => {
             res.status(201).send(result)
