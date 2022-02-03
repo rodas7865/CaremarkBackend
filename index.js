@@ -25,17 +25,17 @@ app.use(function (req,res,next){
 
 connect.then((db) =>{
 
-    let escala = require("./controllers/escala"),
-        users = require('./controllers/users')
-        app.use('/escala',escala)
-        app.use('/users',users)
-
     app.use(cors({
         origin:'*',
         methods:'*',
         allowedHeaders:'*',
         exposedHeaders:'*'
     }));
+
+    let escala = require("./controllers/escala"),
+        users = require('./controllers/users')
+        app.use('/escala',escala)
+        app.use('/users',users)
 
     console.log("Conectado ao Servidor")
 })
