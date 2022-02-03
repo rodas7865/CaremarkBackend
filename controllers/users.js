@@ -5,16 +5,7 @@ const express = require('express'),
     jwt = require('jsonwebtoken'),
     bcryt = require('bcryptjs'),
     global = require('../shared/function')
-const cors = require("cors");
     Users = require("../models/users")
-
-
-router.use(cors({
-    origin:'*',
-    methods:'*',
-    allowedHeaders:'*',
-    exposedHeaders:'*'
-}));
 
 router.get('/',global.authToken,(req,res)=>{
 

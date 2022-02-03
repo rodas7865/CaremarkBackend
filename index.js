@@ -30,6 +30,13 @@ connect.then((db) =>{
         app.use('/escala',escala)
         app.use('/users',users)
 
+    app.use(cors({
+        origin:'*',
+        methods:'*',
+        allowedHeaders:'*',
+        exposedHeaders:'*'
+    }));
+
     console.log("Conectado ao Servidor")
 })
 app.listen(port, () => console.log(projName +` - by Rodrigo Cartaxo at port: ${port}!`))

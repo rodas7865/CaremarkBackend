@@ -1,16 +1,7 @@
 const express = require('express'),
     router = express.Router(),
     global = require('../shared/function')
-const cors = require("cors");
     Escala = require("../models/escala")
-
-router.use(cors({
-    origin:'*',
-    methods:'*',
-    allowedHeaders:'*',
-    exposedHeaders:'*'
-}));
-
 
 router.get('/',global.authToken,(req,res)=>{
 
