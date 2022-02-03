@@ -7,7 +7,7 @@ const escalaSchema = new Schema(
             type:Boolean,
             required:[true, 'É necessario confirmação para o documento']
         },
-        userID : {
+        users : {
             type:[String],
             required:[true, 'É necessario id do utilizador']
         },

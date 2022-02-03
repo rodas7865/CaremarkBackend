@@ -21,11 +21,12 @@ module.exports = {
     verifyAdmin : function (req, res, next) {
         const authHeader = req.headers['authorization'],
             token = authHeader && authHeader.split(' ')[1],
-            userId=atob(token.split('.')[1])
+            decode=JSON.parse(atob(token.split('.')[1])),
+            userId=decode.userid
 
         Users.findById(userId)
             .then(result=>{
-                (result.admin === true) ? (next()) : (res.status(418).send('Utilizador não é admin'))
+                (result.admin===true)?(next()):(res.status(403).send('Acesso Negado'))
             })
     }
 }

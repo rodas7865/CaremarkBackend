@@ -27,7 +27,7 @@ router.get('/:id',global.authToken,(req,res)=>{
 })
 
 router.post('/',global.authToken,global.verifyAdmin,(req,res)=>{
-    Escala.insertMany(req.body)
+    Escala.create(req.body)
         .then(result => {
             res.status(203).send(result)
         })
