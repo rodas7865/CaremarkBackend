@@ -26,5 +26,6 @@ connect.then((db) =>{
         app.use('/users',users)
 
     console.log("Conectado ao Servidor")
-    app.listen(port, () => console.log(projName +` - by Rodrigo Cartaxo at port: ${port}!`))
 })
+
+app.listen(port, () => console.log(projName +` - by Rodrigo Cartaxo at port: ${port}!`))
