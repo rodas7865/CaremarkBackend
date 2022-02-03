@@ -25,11 +25,6 @@ app.use(function (req,res,next){
 
 connect.then((db) =>{
 
-    app.use(cors(), (req, res, next) => {
-        res.setHeader("Access-Control-Allow-Origin", "*");
-        next();
-    });
-
     let escala = require("./controllers/escala"),
         users = require('./controllers/users')
         app.use('/escala',escala)
