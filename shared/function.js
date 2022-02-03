@@ -1,4 +1,5 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken'),
+    Users = require("../models/users")
 
 module.exports = {
 
@@ -18,6 +19,13 @@ module.exports = {
     },
 
     verifyAdmin : function (req, res, next) {
-        (req.user.user.admin === true) ? (next()) : (res.status(418).send('Utilizador não é admin'))
+        const authHeader = req.headers['authorization'],
+            token = authHeader && authHeader.split(' ')[1],
+            userId=atob(token.split('.')[1])
+
+        Users.findById(userId)
+            .then(result=>{
+                (result.admin === true) ? (next()) : (res.status(418).send('Utilizador não é admin'))
+            })
     }
 }
