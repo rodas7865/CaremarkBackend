@@ -10,7 +10,7 @@ const connect =mongoose.connect(url,{dbName:dbName, useNewUrlParser: true, useUn
 
 
 app.use(express.json());
-app.use(cors());
+
 app.use(function (req,res,next){
     let date = new Date(),
         dataEtempo = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+" em "+date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
@@ -20,12 +20,12 @@ app.use(function (req,res,next){
 
 connect.then((db) =>{
 
+
     let escala = require("./controllers/escala"),
         users = require('./controllers/users')
         app.use('/escala',escala)
         app.use('/users',users)
-
+    app.use(cors());
     console.log("Conectado ao Servidor")
+    app.listen(port, () => console.log(projName +` - by Rodrigo Cartaxo at port: ${port}!`))
 })
-
-app.listen(port, () => console.log(projName +` - by Rodrigo Cartaxo at port: ${port}!`))
