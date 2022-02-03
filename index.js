@@ -10,7 +10,11 @@ const connect =mongoose.connect(url,{dbName:dbName, useNewUrlParser: true, useUn
 
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin:'*',
+    methods:'*',
+    allowedHeaders:'*'
+}));
 app.use(function (req,res,next){
     let date = new Date(),
         dataEtempo = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+" em "+date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
