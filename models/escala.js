@@ -8,8 +8,8 @@ const escalaSchema = new Schema(
             required:[true, 'É necessario confirmação para o documento']
         },
         users : {
-            type:[String],
-            required:[true, 'É necessario id do utilizador']
+            type:String,
+            required:[true, 'É necessario os utilizadores']
         },
         inicio : {
             type:Date,
