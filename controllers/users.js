@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const express = require('express'),
     router = express.Router(),
+    cors = require('cors'),
     jwt = require('jsonwebtoken'),
     bcryt = require('bcryptjs'),
     global = require('../shared/function')
@@ -29,7 +30,7 @@ router.get('/:id',global.authToken,(req,res)=>{
         })
 })
 
-router.post('/',global.authToken,global.verifyAdmin,(req,res)=>{
+router.post('/',global.authToken,global.verifyAdmin,cors(),(req,res)=>{
     Users.insertMany(req.body)
         .then(result => {
             res.status(201).send(result)
