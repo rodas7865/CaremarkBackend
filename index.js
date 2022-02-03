@@ -13,7 +13,8 @@ app.use(express.json());
 app.use(cors({
     origin:'*',
     methods:'*',
-    allowedHeaders:'*'
+    allowedHeaders:'*',
+    exposedHeaders:'*'
 }));
 app.use(function (req,res,next){
     let date = new Date(),
