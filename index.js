@@ -10,11 +10,7 @@ const express = require("express"),
 
 
 app.use(express.json());
-app.use(cors({
-    origin:"http://localhost:3000",
-    allowedHeaders:"*",
-    exposedHeaders:"*"
-}))
+app.use(cors())
 app.use(function (req,res,next){
     let date = new Date(),
         dataEtempo = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+" em "+date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
