@@ -14,8 +14,7 @@ app.use(cors({
     origin:'*',
     methods:'*',
     allowedHeaders:'*',
-    exposedHeaders:'*',
-    preflightContinue:true
+    exposedHeaders:'*'
 }));
 app.use(function (req,res,next){
     let date = new Date(),
