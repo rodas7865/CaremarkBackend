@@ -2,10 +2,6 @@ const mongoose = require("mongoose"),
     Schema = mongoose.Schema
 
 const escalaUsers = new Schema({
-    users:[{
-        type: String,
-        required: [true, 'É necessario um nome']
-    }],
     nome: {
         type: String,
         required: [true, 'É necessario um nome']

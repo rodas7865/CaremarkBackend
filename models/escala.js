@@ -7,10 +7,10 @@ const escalaSchema = new Schema(
             type:Boolean,
             required:[true, 'É necessario confirmação para o documento']
         },
-        users : {
+        users : [{
             type:String,
             required:[true, 'É necessario os utilizadores']
-        },
+        }],
         inicio : {
             type:Date,
             required:[true, 'É necessario hora de inicio']
