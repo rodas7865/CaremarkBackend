@@ -64,6 +64,26 @@ router.patch('/:id',global.authToken,global.verifyAdmin,(req,res)=>{
         })
 })
 
+router.patch('/:id/confirm',global.authToken,(req,res)=>{
+
+    if(req.body.length!==1){
+        res.status(418).send(error)
+    }else{
+        if (req.body.confirmado===undefined||req.body.confirmado===null||typeof req.body.confirmado!=="boolean"){
+            res.status(418).send(error)
+        }else{
+            Escala.updateOne({"_id":req.params.id},req.body)
+                .then(result =>{
+                    console.log(result)
+                    res.status(203).send('Update feito com sucesso')
+                })
+                .catch(result => {
+                    res.status(418).send(result)
+                })
+        }
+    }
+})
+
 router.delete('/:id',global.authToken,global.verifyAdmin,(req,res)=>{
     Escala.deleteOne({"_id":req.params.id})
         .then(()=>res.status(200).send('Delete feito com sucesso'))
