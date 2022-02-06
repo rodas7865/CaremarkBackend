@@ -66,11 +66,9 @@ router.patch('/:id',global.authToken,global.verifyAdmin,(req,res)=>{
 
 router.patch('/:id/confirm',global.authToken,(req,res)=>{
 
-    if(req.body.length!==1){
-        res.status(418).send(error)
-    }else{
+
         if (req.body.confirmado===undefined||req.body.confirmado===null||typeof req.body.confirmado!=="boolean"){
-            res.status(418).send(error)
+            res.status(406).send(error)
         }else{
             Escala.updateOne({"_id":req.params.id},req.body)
                 .then(result =>{
@@ -81,7 +79,7 @@ router.patch('/:id/confirm',global.authToken,(req,res)=>{
                     res.status(418).send(result)
                 })
         }
-    }
+
 })
 
 router.delete('/:id',global.authToken,global.verifyAdmin,(req,res)=>{
